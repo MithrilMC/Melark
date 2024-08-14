@@ -10,7 +10,7 @@ public final class Melark extends JavaPlugin {
 
         // Plugin startup logic
         long enableTime = System.currentTimeMillis() - startTime;
-        getLogger().info("Melark plugin has been enabled! (Took " + enableTime + "ms)");
+        getLogger().info("Melark has been enabled! (Took " + enableTime + "ms)");
     }
 
     @Override
@@ -19,6 +19,6 @@ public final class Melark extends JavaPlugin {
 
         // Plugin shutdown logic
         long disableTime = System.currentTimeMillis() - disableStartTime;
-        getLogger().info("Melark plugin has been disabled! (Took " + disableTime + "ms)");
+        getLogger().info("Melark has been disabled! (Took " + disableTime + "ms)");
     }
 }
