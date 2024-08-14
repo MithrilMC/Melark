@@ -22,7 +22,7 @@ jobs:
       - name: Build and analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: ./gradlew clean build
+        run: chmod +x gradlew && ./gradlew clean build
       - name: Rename JAR with Build Number
         run: |
           original_jar=$(find jar/build/libs -type f -name "Melark-*.jar")
