@@ -1,5 +1,5 @@
 name: Melark
 version: '1.0'
 main: me.melani.melark.Melark
-api-version: '1.21'
+api-version: '1.21.1'
 load: STARTUP
