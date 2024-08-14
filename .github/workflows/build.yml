@@ -25,7 +25,7 @@ jobs:
         run: chmod +x gradlew && ./gradlew clean build
       - name: Rename JAR with Build Number
         run: |
-          original_jar=$(find jar/build/libs -type f -name "Melark-*.jar")
+          original_jar=$(find /build/libs -type f -name "Melark-*.jar")
           new_name=$(echo "$original_jar" | sed "s/Melark-\(.*\)\.jar/Melark-\1+${{ github.run_number }}.jar/")
           mv "$original_jar" "$new_name"
       - name: Upload a Build Artifact
