@@ -4,14 +4,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4 # https://github.com/graalvm/setup-graalvm
+      - uses: actions/checkout@v4
       - uses: graalvm/setup-graalvm@v1
         with:
           java-version: '23-ea'
           distribution: 'graalvm'
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Cache Gradle
-        uses: actions/cache@v4 # https://github.com/actions/cache/releases
+        uses: actions/cache@v4
         with:
           path: |
             ~/.gradle/caches
@@ -23,13 +23,22 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: chmod +x gradlew && ./gradlew clean build
+      - name: List build directory contents
+        run: |
+          echo "Contents of the current directory:"
+          ls -R
       - name: Rename JAR with Build Number
         run: |
-          original_jar=$(find /build/libs -type f -name "Melark-*.jar")
+          original_jar=$(find . -type f -name "Melark-*.jar")
+          if [ -z "$original_jar" ]; then
+            echo "Error: JAR file not found"
+            exit 1
+          fi
           new_name=$(echo "$original_jar" | sed "s/Melark-\(.*\)\.jar/Melark-\1+${{ github.run_number }}.jar/")
           mv "$original_jar" "$new_name"
+          echo "Renamed $original_jar to $new_name"
       - name: Upload a Build Artifact
-        uses: actions/upload-artifact@v4 # https://github.com/actions/upload-artifact/releases
+        uses: actions/upload-artifact@v4
         with:
-          name: Melark-*+${{ github.run_number }}
-          path: jar/build/libs/Melark-*+${{ github.run_number }}.jar
+          name: Melark-${{ github.run_number }}
+          path: ./**/Melark-*+${{ github.run_number }}.jar
