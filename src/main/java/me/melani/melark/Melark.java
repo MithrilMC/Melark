@@ -1,24 +1,24 @@
 package me.melani.melark;
 
 import org.bukkit.plugin.java.JavaPlugin;
+import java.util.logging.Logger;
 
 public final class Melark extends JavaPlugin {
+    private final Logger log = getLogger();
 
     @Override
     public void onEnable() {
-        long startTime = System.currentTimeMillis();
-
-        // Plugin startup logic
-        long enableTime = System.currentTimeMillis() - startTime;
-        getLogger().info("Melark has been enabled! (Took " + enableTime + "ms)");
+        logTimedMessage("enabled");
     }
 
     @Override
     public void onDisable() {
-        long disableStartTime = System.currentTimeMillis();
+        logTimedMessage("disabled");
+    }
 
-        // Plugin shutdown logic
-        long disableTime = System.currentTimeMillis() - disableStartTime;
-        getLogger().info("Melark has been disabled! (Took " + disableTime + "ms)");
+    private void logTimedMessage(String state) {
+        long startTime = System.nanoTime();
+        long duration = (System.nanoTime() - startTime) / 1000;
+        log.info(String.format("%s has been %s! (Took %.3fms)", getName(), state, duration / 1000.0));
     }
 }
