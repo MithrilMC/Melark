@@ -17,8 +17,8 @@ public final class Melark extends JavaPlugin {
     }
 
     private void logTimedMessage(String state) {
-        long startTime = System.nanoTime();
-        long duration = (System.nanoTime() - startTime) / 1000;
-        log.info(String.format("%s has been %s! (Took %.3fms)", getName(), state, duration / 1000.0));
+        long startTime = System.currentTimeMillis();
+        long duration = System.currentTimeMillis() - startTime;
+        log.info(String.format("%s has been %s! (Took %dms)", getName(), state, duration));
     }
 }
